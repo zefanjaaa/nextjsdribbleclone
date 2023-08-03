@@ -4,7 +4,6 @@ import Image from "next/image";
 import Link from "next/link";
 import AuthProviders from "./AuthProviders";
 import { getCurrentUser } from "@/lib/session";
-import { signOut } from "next-auth/react";
 
 const Navbar = async () => {
   const session = await getCurrentUser();
@@ -27,6 +26,7 @@ const Navbar = async () => {
         {session?.user ? (
           <>
             <ProfileMenu session={session} />
+            <Link href="/create-project">share work</Link>
           </>
         ) : (
           <AuthProviders />
