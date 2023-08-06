@@ -6,6 +6,7 @@ import { g, auth, config } from "@grafbase/sdk";
 // https://grafbase.com/docs/auth
 //
 
+//npx grafbase dev
 //@ts-ignore
 const User = g
   .model("User", {
