@@ -8,6 +8,7 @@ import CustomMenu from "./CustomMenu";
 import { FormState, ProjectInterface, SessionInterface } from "@/common.types";
 import { useRouter } from "next/navigation";
 import Button from "./Button";
+import { createNewProject, fetchToken } from "@/lib/actions";
 
 type Props = {
   type: string;
@@ -27,7 +28,26 @@ const ProjectForm = ({ type, session, project }: Props) => {
     githubUrl: project?.githubUrl || "",
     category: project?.category || "",
   });
-  const handleSubmit = (event: React.FormEvent) => {};
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    setSubmitting(true);
+
+    const { token } = await fetchToken();
+
+    try {
+      if (type === "create") {
+        //create project
+        await createNewProject(form, session?.user?.id, token);
+
+        router.push("/");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
