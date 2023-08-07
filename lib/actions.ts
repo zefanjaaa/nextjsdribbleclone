@@ -2,14 +2,15 @@ import { ProjectForm } from "@/common.types";
 import {
   createProjectMutation,
   createUserMutation,
-  deleteProjectMutation,
-  updateProjectMutation,
-  getProjectByIdQuery,
-  getProjectsOfUserQuery,
+  // deleteProjectMutation,
+  // updateProjectMutation,
+  // getProjectByIdQuery,
+  // getProjectsOfUserQuery,
   getUserQuery,
   projectsQuery,
 } from "@/graphql";
 import { GraphQLClient } from "graphql-request";
+import { categoryFilters } from "@/constants";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -24,33 +25,6 @@ const serverUrl = isProduction
   : "http://localhost:3000";
 
 const client = new GraphQLClient(apiUrl);
-
-const makeGraphQLRequest = async (query: string, variables: {}) => {
-  try {
-    return await client.request(query, variables);
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const createUser = (name: string, email: string, avatarUrl: string) => {
-  client.setHeader("x-api-key", apiKey);
-
-  const variables = {
-    input: {
-      name: name,
-      email: email,
-      avatarUrl: avatarUrl,
-    },
-  };
-
-  return makeGraphQLRequest(createUserMutation, variables);
-};
-
-export const getUser = (email: string) => {
-  client.setHeader(`x-api-key`, apiKey);
-  return makeGraphQLRequest(getUserQuery, { email });
-};
 
 export const fetchToken = async () => {
   try {
@@ -71,6 +45,33 @@ export const uploadImage = async (imagePath: string) => {
   } catch (error) {
     throw error;
   }
+};
+
+const makeGraphQLRequest = async (query: string, variables = {}) => {
+  try {
+    return await client.request(query, variables);
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const createUser = (name: string, email: string, avatarUrl: string) => {
+  client.setHeader("x-api-key", apiKey);
+
+  const variables = {
+    input: {
+      name: name,
+      email: email,
+      avatarUrl: avatarUrl,
+    },
+  };
+
+  return makeGraphQLRequest(createUserMutation, variables);
+};
+
+export const getUser = (email: string) => {
+  client.setHeader(`x-api-key`, apiKey);
+  return makeGraphQLRequest(getUserQuery, { email });
 };
 
 export const createNewProject = async (
@@ -94,4 +95,20 @@ export const createNewProject = async (
 
     return makeGraphQLRequest(createProjectMutation, variables);
   }
+};
+
+// export const fetchAllProjects = async (
+//   category?: string,
+//   endcursor?: string
+// ) => {
+//   client.setHeader(`x-api-key`, apiKey);
+
+//   return makeGraphQLRequest(projectsQuery, { category, endcursor });
+// };
+export const fetchAllProjects = (category?: string | null, endcursor?: string | null) => {
+    client.setHeader("x-api-key", apiKey);
+
+    const categories = category == null ? categoryFilters : [category];
+
+    return makeGraphQLRequest(projectsQuery, { categories, endcursor });
 };
