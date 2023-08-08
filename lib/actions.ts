@@ -2,10 +2,10 @@ import { ProjectForm } from "@/common.types";
 import {
   createProjectMutation,
   createUserMutation,
-  // deleteProjectMutation,
-  // updateProjectMutation,
-  // getProjectByIdQuery,
-  // getProjectsOfUserQuery,
+  getProjectByIdQuery,
+  deleteProjectMutation,
+  updateProjectMutation,
+  getProjectsOfUserQuery,
   getUserQuery,
   projectsQuery,
 } from "@/graphql";
@@ -105,10 +105,23 @@ export const createNewProject = async (
 
 //   return makeGraphQLRequest(projectsQuery, { category, endcursor });
 // };
-export const fetchAllProjects = (category?: string | null, endcursor?: string | null) => {
-    client.setHeader("x-api-key", apiKey);
+export const fetchAllProjects = (
+  category?: string | null,
+  endcursor?: string | null
+) => {
+  client.setHeader("x-api-key", apiKey);
 
-    const categories = category == null ? categoryFilters : [category];
+  const categories = category == null ? categoryFilters : [category];
 
-    return makeGraphQLRequest(projectsQuery, { categories, endcursor });
+  return makeGraphQLRequest(projectsQuery, { categories, endcursor });
+};
+
+export const getProjectDetails = (id: string) => {
+  client.setHeader(`x-api-key`, apiKey);
+  return makeGraphQLRequest(getProjectByIdQuery, { id });
+};
+
+export const getUserProjects = (id: string, last?: number) => {
+  client.setHeader(`x-api-key`, apiKey);
+  return makeGraphQLRequest(getProjectsOfUserQuery, { id, last });
 };
