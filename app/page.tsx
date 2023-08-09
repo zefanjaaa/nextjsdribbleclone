@@ -1,4 +1,5 @@
 import { ProjectInterface } from "@/common.types";
+import Categories from "@/components/Categories";
 import ProjectCard from "@/components/ProjectCard";
 import { fetchAllProjects } from "@/lib/actions";
 
@@ -14,17 +15,24 @@ type ProjectSearch = {
   };
 };
 
-const Home = async () => {
-  const data = await fetchAllProjects() as ProjectSearch;
+type searchParams = {
+  category?: string | null;
+};
+type Props = {
+  searchParams: searchParams;
+};
 
-  console.log('This is the data from fetch all projects',data);
+const Home = async ({ searchParams: { category } }: Props) => {
+  const data = (await fetchAllProjects(category)) as ProjectSearch;
+
+  console.log("This is the data from fetch all projects", data);
 
   const projectsToDisplay = data?.projectSearch?.edges || [];
 
   if (projectsToDisplay.length === 0) {
     return (
       <section className="flexStart flex-col paddings">
-        Categories
+        <Categories />
         <p className="no-result-text text-center">
           No projects found. Please upload a project
         </p>
@@ -33,7 +41,7 @@ const Home = async () => {
   }
   return (
     <section className="flex-start flex-col mb-16 paddings">
-      <h1>Categories</h1>
+      <Categories />
       <section className="projects-grid">
         {projectsToDisplay.map(({ node }: { node: ProjectInterface }) => (
           <ProjectCard
