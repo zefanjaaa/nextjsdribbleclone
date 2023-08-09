@@ -38,7 +38,7 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
               <Link href={renderLink()}>{project?.createdBy?.name}</Link>
               <Image src="/dot.svg" width={4} height={4} alt="dot" />
               <Link
-                href={`/?category=${project.category}`}
+                href={`/?category=${project?.category}`}
                 className="text-primary-purple font-semibold"
               >
                 {project?.category}
@@ -47,11 +47,11 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
           </div>
         </div>
 
-        {/* {session?.user?.email === project?.createdBy?.email && (
+        {session?.user?.email === project?.createdBy?.email && (
           <div className="flex justify-end items-center gap-2">
             <ProjectActions projectId={project?.id} />
           </div>
-        )} */}
+        )}
       </section>
 
       <section className="mt-14">

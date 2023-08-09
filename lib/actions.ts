@@ -125,3 +125,8 @@ export const getUserProjects = (id: string, last?: number) => {
   client.setHeader(`x-api-key`, apiKey);
   return makeGraphQLRequest(getProjectsOfUserQuery, { id, last });
 };
+
+export const deleteProject = (id: string, token: string) => {
+  client.setHeader("Authorization", `Bearer ${token}`);
+  return makeGraphQLRequest(deleteProjectMutation, { id });
+};
