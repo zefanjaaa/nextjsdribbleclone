@@ -8,7 +8,7 @@ import CustomMenu from "./CustomMenu";
 import { FormState, ProjectInterface, SessionInterface } from "@/common.types";
 import { useRouter } from "next/navigation";
 import Button from "./Button";
-import { createNewProject, fetchToken } from "@/lib/actions";
+import { createNewProject, fetchToken, updateProject } from "@/lib/actions";
 
 type Props = {
   type: string;
@@ -28,26 +28,6 @@ const ProjectForm = ({ type, session, project }: Props) => {
     githubUrl: project?.githubUrl || "",
     category: project?.category || "",
   });
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-
-    setSubmitting(true);
-
-    const { token } = await fetchToken();
-
-    try {
-      if (type === "create") {
-        //create project
-        await createNewProject(form, session?.user?.id, token);
-
-        router.push("/");
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setSubmitting(false);
-    }
-  };
 
   const handleChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -77,6 +57,34 @@ const ProjectForm = ({ type, session, project }: Props) => {
       ...prevState,
       [fieldName]: value,
     }));
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+
+    setSubmitting(true);
+
+    const { token } = await fetchToken();
+
+    try {
+      if (type === "create") {
+        //create project
+        await createNewProject(form, session?.user?.id, token);
+
+        router.push("/");
+      }
+
+      if (type === "edit") {
+        //edit project
+        await updateProject(form, project?.id as string, token);
+        router.push("/");
+        router.refresh();
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (

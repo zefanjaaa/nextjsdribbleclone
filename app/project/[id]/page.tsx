@@ -24,7 +24,7 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
         <div className="flex-1 flex items-start gap-5 w-full max-xs:flex-col">
           <Link href={renderLink()}>
             <Image
-              src={project?.createdBy?.avatarUrl}
+              src={project?.createdBy?.avatarUrl as string}
               width={50}
               height={50}
               alt="profile"
@@ -69,7 +69,7 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
 
         <div className="flex flex-wrap mt-5 gap-5">
           <Link
-            href={project?.githubUrl}
+            href={project?.githubUrl as string}
             target="_blank"
             rel="noreferrer"
             className="flexCenter gap-2 tex-sm font-medium text-primary-purple"
@@ -78,7 +78,7 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
           </Link>
           <Image src="/dot.svg" width={4} height={4} alt="dot" />
           <Link
-            href={project?.liveSiteUrl}
+            href={project?.liveSiteUrl as string}
             target="_blank"
             rel="noreferrer"
             className="flexCenter gap-2 tex-sm font-medium text-primary-purple"
@@ -92,7 +92,7 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
         <span className="w-full h-0.5 bg-light-white-200" />
         <Link href={renderLink()} className="min-w-[82px] h-[82px]">
           <Image
-            src={project?.createdBy?.avatarUrl}
+            src={project?.createdBy?.avatarUrl as string}
             className="rounded-full"
             width={82}
             height={82}
@@ -103,8 +103,8 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
       </section>
 
       <RelatedProjects
-        userId={project?.createdBy?.id}
-        projectId={project?.id}
+        userId={project?.createdBy?.id as string}
+        projectId={project?.id as string}
       />
     </Modal>
   );
