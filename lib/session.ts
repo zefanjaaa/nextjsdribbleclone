@@ -1,10 +1,8 @@
 import { getServerSession } from "next-auth/next";
 import { SessionInterface, UserProfile } from "@/common.types";
 import { NextAuthOptions, User } from "next-auth";
-// import { type Adapter } from "@auth/core/adapters";
+
 //1:40
-// import { AdapterUser } from "next-auth/adapters";
-import { Adapter, AdapterUser } from "next-auth/adapters";
 
 import GoogleProvider from "next-auth/providers/google";
 
@@ -61,14 +59,13 @@ export const authOptions: NextAuthOptions = {
       }
     },
 
-    async signIn({ user }: { user: AdapterUser | User }) {
-      // async signIn({ user }: { user: User }) {
+    async signIn({ user }: { user: User }) {
       try {
         //get the user if they exsist
         const userExists = (await getUser(user?.email as string)) as {
           user?: UserProfile;
         };
-        console.log("logged in user", user);
+
         //if they dont exsist create them
         if (!userExists.user) {
           await createUser(

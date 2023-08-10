@@ -72,6 +72,7 @@ const ProjectForm = ({ type, session, project }: Props) => {
         await createNewProject(form, session?.user?.id, token);
 
         router.push("/");
+        router.refresh();
       }
 
       if (type === "edit") {

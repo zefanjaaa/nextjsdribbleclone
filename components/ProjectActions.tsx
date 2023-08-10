@@ -23,6 +23,7 @@ const ProjectActions = ({ projectId }: Props) => {
       await deleteProject(projectId, token);
 
       router.push("/");
+      router.refresh();
     } catch (error) {
       console.log("There is an error deleting the project ==>", error);
     } finally {
