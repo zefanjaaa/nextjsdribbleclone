@@ -11,14 +11,16 @@ import {
 } from "@/graphql";
 import { GraphQLClient } from "graphql-request";
 import { categoryFilters } from "@/constants";
-
+//TEST
 const isProduction = process.env.NODE_ENV === "production";
 
 const apiUrl = isProduction
   ? process.env.NEXT_PUBLIC_GRAFBASE_API_URL || ""
   : " http://127.0.0.1:4000/graphql";
 
-const apiKey = isProduction ? process.env.NEXT_PUBLIC_GRAFBASE_API_KEY || "" : "1234";
+const apiKey = isProduction
+  ? process.env.NEXT_PUBLIC_GRAFBASE_API_KEY || ""
+  : "1234";
 
 const serverUrl = isProduction
   ? process.env.NEXT_PUBLIC_SERVER_URL
