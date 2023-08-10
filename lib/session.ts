@@ -2,14 +2,12 @@ import { getServerSession } from "next-auth/next";
 import { SessionInterface, UserProfile } from "@/common.types";
 import { NextAuthOptions, User } from "next-auth";
 
-//1:40
-
 import GoogleProvider from "next-auth/providers/google";
 
 import jsonwebtoken from "jsonwebtoken";
 
 import { JWT } from "next-auth/jwt";
-import { auth } from "@grafbase/sdk";
+
 import { createUser, getUser } from "./actions";
 
 export const authOptions: NextAuthOptions = {
