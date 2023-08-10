@@ -15,10 +15,10 @@ import { categoryFilters } from "@/constants";
 const isProduction = process.env.NODE_ENV === "production";
 
 const apiUrl = isProduction
-  ? process.env.GRAFBASE_API_URL || ""
+  ? process.env.NEXT_PUBLIC_GRAFBASE_API_URL || ""
   : " http://127.0.0.1:4000/graphql";
 
-const apiKey = isProduction ? process.env.GRAFBASE_API_KEY || "" : "1234";
+const apiKey = isProduction ? process.env.NEXT_PUBLIC_GRAFBASE_API_KEY || "" : "1234";
 
 const serverUrl = isProduction
   ? process.env.NEXT_PUBLIC_SERVER_URL
