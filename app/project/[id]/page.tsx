@@ -15,16 +15,16 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
   if (!res.project) {
     <p>Failed to fetch the project information</p>;
   }
-  const project = res?.project;
+  const projectDetails = res?.project;
 
-  const renderLink = () => `/profile/${project?.createdBy?.id}`;
+  const renderLink = () => `/profile/${projectDetails?.createdBy?.id}`;
   return (
     <Modal>
       <section className="flexBetween gap-y-8 max-w-4xl max-xs:flex-col w-full">
         <div className="flex-1 flex items-start gap-5 w-full max-xs:flex-col">
           <Link href={renderLink()}>
             <Image
-              src={project?.createdBy?.avatarUrl as string}
+              src={projectDetails?.createdBy?.avatarUrl as string}
               width={50}
               height={50}
               alt="profile"
@@ -33,9 +33,9 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
           </Link>
 
           <div className="flex-1 flexStart flex-col gap-1">
-            <p className="self-start text-lg font-semibold">{project?.title}</p>
+            <p className="self-start text-lg font-semibold">{projectDetails?.title}</p>
             <div className="user-info">
-              <Link href={renderLink()}>{project?.createdBy?.name}</Link>
+              <Link href={renderLink()}>{projectDetails?.createdBy?.name}</Link>
               <Image
                 src="/dot.svg"
                 width={0}
@@ -44,25 +44,25 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
                 className="w-[4px] h-[4px]"
               />
               <Link
-                href={`/?category=${project?.category}`}
+                href={`/?category=${projectDetails?.category}`}
                 className="text-primary-purple font-semibold"
               >
-                {project?.category}
+                {projectDetails?.category}
               </Link>
             </div>
           </div>
         </div>
 
-        {session?.user?.email === project?.createdBy?.email && (
+        {session?.user?.email === projectDetails?.createdBy?.email && (
           <div className="flex justify-end items-center gap-2">
-            <ProjectActions projectId={project?.id} />
+            <ProjectActions projectId={projectDetails?.id} />
           </div>
         )}
       </section>
 
       <section className="mt-14">
         <Image
-          src={`${project?.image}`}
+          src={`${projectDetails?.image}`}
           className="object-cover rounded-2xl"
           width={1064}
           height={798}
@@ -71,11 +71,11 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
       </section>
 
       <section className="flexCenter flex-col mt-20">
-        <p className="max-w-5xl text-xl font-normal">{project?.description}</p>
+        <p className="max-w-5xl text-xl font-normal">{projectDetails?.description}</p>
 
         <div className="flex flex-wrap mt-5 gap-5">
           <Link
-            href={project?.githubUrl as string}
+            href={projectDetails?.githubUrl as string}
             target="_blank"
             rel="noreferrer"
             className="flexCenter gap-2 tex-sm font-medium text-primary-purple"
@@ -90,7 +90,7 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
             className="w-[4px] h-[4px]"
           />
           <Link
-            href={project?.liveSiteUrl as string}
+            href={projectDetails?.liveSiteUrl as string}
             target="_blank"
             rel="noreferrer"
             className="flexCenter gap-2 tex-sm font-medium text-primary-purple"
@@ -104,7 +104,7 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
         <span className="w-full h-0.5 bg-light-white-200" />
         <Link href={renderLink()} className="min-w-[82px] h-[82px]">
           <Image
-            src={project?.createdBy?.avatarUrl as string}
+            src={projectDetails?.createdBy?.avatarUrl as string}
             className="rounded-full"
             width={82}
             height={82}
@@ -115,8 +115,8 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
       </section>
 
       <RelatedProjects
-        userId={project?.createdBy?.id as string}
-        projectId={project?.id as string}
+        userId={projectDetails?.createdBy?.id as string}
+        projectId={projectDetails?.id as string}
       />
     </Modal>
   );
