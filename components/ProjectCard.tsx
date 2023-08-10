@@ -36,6 +36,7 @@ const ProjectCard = ({ id, image, title, name, avatarUrl, userId }: Props) => {
           height={314}
           className="w-full h-full object-cover rounded-2xl"
           alt="project image"
+          priority={true}
         />
 
         <div className="hidden group-hover:flex profile_card-title">
@@ -58,11 +59,23 @@ const ProjectCard = ({ id, image, title, name, avatarUrl, userId }: Props) => {
         </Link>
         <div className="flexCenter gap-3">
           <div className="flexCenter gap-2">
-            <Image src="/hearth.svg" width={13} height={12} alt="heart" />
+            <Image
+              src="/hearth.svg"
+              width={0}
+              height={0}
+              alt="heart"
+              className="w-[13px] h-[12px]"
+            />
             <p className="text-sm">{randomLikes}</p>
           </div>
           <div className="flexCenter gap-2">
-            <Image src="/eye.svg" width={12} height={9} alt="eye" />
+            <Image
+              src="/eye.svg"
+              width={0}
+              height={0}
+              alt="eye"
+              className="w-[12px] h-[9px]"
+            />
             <p className="text-sm">{randomViews}</p>
           </div>
         </div>

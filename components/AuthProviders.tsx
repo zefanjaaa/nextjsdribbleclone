@@ -22,7 +22,7 @@ const AuthProviders = () => {
   useEffect(() => {
     const fetchProviders = async () => {
       const res = await getProviders();
-      console.log(res);
+
       setProviders(res);
     };
 
@@ -38,7 +38,6 @@ const AuthProviders = () => {
             title="Sign in"
             handleClick={() => signIn(provider?.id)}
           />
-          // {provider.id}
         ))}
       </div>
     );

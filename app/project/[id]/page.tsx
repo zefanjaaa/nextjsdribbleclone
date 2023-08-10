@@ -36,7 +36,13 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
             <p className="self-start text-lg font-semibold">{project?.title}</p>
             <div className="user-info">
               <Link href={renderLink()}>{project?.createdBy?.name}</Link>
-              <Image src="/dot.svg" width={4} height={4} alt="dot" />
+              <Image
+                src="/dot.svg"
+                width={0}
+                height={0}
+                alt="dot"
+                className="w-[4px] h-[4px]"
+              />
               <Link
                 href={`/?category=${project?.category}`}
                 className="text-primary-purple font-semibold"
@@ -76,7 +82,13 @@ const Project = async ({ params: { id } }: { params: { id: string } }) => {
           >
             🖥 <span className="underline">Github</span>
           </Link>
-          <Image src="/dot.svg" width={4} height={4} alt="dot" />
+          <Image
+            src="/dot.svg"
+            width={0}
+            height={0}
+            alt="dot"
+            className="w-[4px] h-[4px]"
+          />
           <Link
             href={project?.liveSiteUrl as string}
             target="_blank"

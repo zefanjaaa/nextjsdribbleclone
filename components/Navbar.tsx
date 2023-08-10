@@ -7,12 +7,19 @@ import { getCurrentUser } from "@/lib/session";
 
 const Navbar = async () => {
   const session = await getCurrentUser();
-
+  //width 115 px and height 43 px
   return (
     <nav className="flexBetween navbar">
       <div className="flex-1 flexStart gap-10">
         <Link href="/">
-          <Image src="/logo.svg" width={115} height={43} alt="Logo" />
+          <Image
+            src="/logo.svg"
+            width={0}
+            height={0}
+            alt="Logo"
+            className="w-[115px] h-[43px]]"
+            priority={true}
+          />
         </Link>
         <ul className="xl:flex hidden text-small gap-7">
           {NavLinks.map((link) => (

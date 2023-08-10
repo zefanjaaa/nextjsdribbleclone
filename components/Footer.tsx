@@ -29,9 +29,10 @@ const Footer = () => {
         <div className="flex items-start flex-col">
           <Image
             src="/logo-purple.svg"
-            width={115}
-            height={38}
+            width={0}
+            height={0}
             alt="footer-image"
+            className="w-[115px] h-[38px]]"
           />
           <p className="text-start text-sm font-normal mt-5 max-w-xs">
             Flexxible is the world's leading community for creatives to share,
